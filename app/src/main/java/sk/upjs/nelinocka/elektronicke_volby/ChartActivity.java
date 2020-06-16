@@ -2,6 +2,9 @@ package sk.upjs.nelinocka.elektronicke_volby;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -40,9 +43,16 @@ public class ChartActivity extends AppCompatActivity {
     }
 
     private ArrayList<PieEntry> dataValues() {
+        //  VoteForCandidateRepository voteForCandidateRepository = new VoteForCandidateRepository(getApplicationContext());
         ArrayList<PieEntry> hodnoty = new ArrayList<PieEntry>();
+        @SuppressLint("WrongConstant") SharedPreferences sh
+                = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
         for (int i = 0; i < candidateNames.length; i++) {
-            hodnoty.add(new PieEntry(10, candidateNames[i]));
+            //     VoteForCandidate voteForCandidate = voteForCandidateRepository.getVote(candidateNames[i]).getValue();
+            int sum = sh.getInt(candidateNames[i], 0);
+            System.out.println(candidateNames[i] + " " + sum);
+
+            hodnoty.add(new PieEntry(sum, candidateNames[i]));
             float r = rand.nextFloat();
             float g = rand.nextFloat();
             float b = rand.nextFloat();

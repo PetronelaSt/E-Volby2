@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import androidx.annotation.*;
 import androidx.fragment.app.Fragment;
@@ -46,7 +48,6 @@ public class DetailCandidateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
-
         detailAboutCandidate =
                 view.findViewById(R.id.detailsAboutCandidate);
         candidateName = view.findViewById(R.id.candidateName);
@@ -119,5 +120,12 @@ public class DetailCandidateFragment extends Fragment {
         candidatePoliticalParty.setText(candidatePoliticalParties[candidateID]);
         candidateAge.setText(candidateAges[candidateID]);
         detailAboutCandidate.setText("   " + detailsAboutCandidates[candidateID]);
+    }
+
+    private void createMapForVote(String[] candidateNames){
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        for (int i = 0; i < candidateNames.length; i++) {
+            map.put(candidateNames[i], 0);
+        }
     }
 }

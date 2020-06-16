@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("startTimeForVoting", "20200503203400");
-        editor.putString("endTimeForVoting", "20200617203400");
+        editor.putString("startTimeForVoting", "20200614203400");
+        editor.putString("endTimeForVoting", "20200617170500");
         editor.commit();
 
 /*

@@ -92,7 +92,7 @@ public class VoteActivity extends AppCompatActivity {
                                 Intent j = new Intent(getBaseContext(), ChartActivity.class);
                                 startActivity(j);
                             } else {
-                                odoslalHlas(personOP, personPIN);
+                                // odoslalHlas(personOP, personPIN);
                                 pripocitajHlas(candidateName);
                                 Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
                                 toast.show();
@@ -121,6 +121,24 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void pripocitajHlas(String candidateName) {
+        @SuppressLint("WrongConstant") SharedPreferences sh
+                = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
+        int sum = sh.getInt(candidateName, 0);
+        // System.out.println("VOTE for " + candidateName + ": " + sum);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(candidateName, sum + 1);
+        editor.commit();
+
+
+        /*
+        VoteForCandidateRepository voteForCandidateRepository = new VoteForCandidateRepository(getApplicationContext());
+        VoteForCandidate voteForCandidate = voteForCandidateRepository.getVote(candidateName).getValue();
+        voteForCandidate.setName(candidateName);
+        int povodne = voteForCandidate.getSum();
+        voteForCandidate.setSum(povodne + 1);
+
+        voteForCandidateRepository.updateVote(voteForCandidate);*/
     }
 }
