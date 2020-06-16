@@ -18,7 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import sk.upjs.nelinocka.elektronicke_volby.databinding.ActivityVoteBinding;
 
@@ -120,7 +122,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void odoslalHlas(TextInputLayout personOP, TextInputLayout personPIN) {
-
+    //idealne pozriem ci uz hlasoval
     }
 
     private void pripocitajHlas(String candidateName) {

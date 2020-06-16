@@ -12,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import androidx.annotation.*;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
@@ -25,6 +31,7 @@ public class DetailCandidateFragment extends Fragment {
     private ImageView candidateImage;
     private TextView candidateAge;
     private TextView candidatePoliticalParty;
+    private String currentDateAndTime;
 
     public DetailCandidateFragment() {
         // Required empty public constructor
@@ -38,6 +45,9 @@ public class DetailCandidateFragment extends Fragment {
                 container,
                 false);
     }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+    String date_end = "20200503203400";
 
     @Override
     public void onViewCreated(@NonNull View view,
@@ -58,13 +68,19 @@ public class DetailCandidateFragment extends Fragment {
 
         Button button = view.findViewById(R.id.pickedCandidate);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), VoteActivity.class);
-                startActivity(i);
-            }
-        });
+        String currentDateAndTime = sdf.format(new Date());
+        if (currentDateAndTime.compareTo(date_end) >= 0) {
+            button.setEnabled(false);
+        } else {
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getContext(), VoteActivity.class);
+                    startActivity(i);
+                }
+            });
+        }
     }
 
     private Integer[] candidateImages = new Integer[]{
