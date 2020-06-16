@@ -1,1 +1,3 @@
-"# Elektronicke-volby" 
+Elektronické voľby 
+
+- jednoduchá app so zoznamom kandidátov, ich detailným zobrazením, hlasovaním a následnou ukážkou výsledku hlasovania v koláčovom grafe.
