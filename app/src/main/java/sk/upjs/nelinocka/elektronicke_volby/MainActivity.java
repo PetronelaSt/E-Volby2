@@ -1,21 +1,18 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationBuilderWithBuilderAccessor;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,20 +32,25 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-    String date_end = "20200503203400";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String currentDateAndTime = sdf.format(new Date());
+        SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("startTimeForVoting", "20200503203400");
+        editor.putString("endTimeForVoting", "20200617203400");
+        editor.commit();
+
+/*
         if (currentDateAndTime.compareTo(date_end) >= 0) {
 
             showNotification();
             //  String channel_id = createNotificationChannel(this.getApplicationContext());
 //            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this.getApplicationContext(), channel_id);
-        }
+        }*/
 
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_main, new CandidateListViewFragment()).commit();
 
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 // use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
 
-        Notification.Builder n  = new Notification.Builder(this)
+        Notification.Builder n = new Notification.Builder(this)
                 .setContentTitle("New notif")
                 .setContentText("Subject")
                 .setSmallIcon(R.drawable.notification_icon)
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         Notification not = n.build();
 
 
-        notificationManager.notify(1,not);
+        notificationManager.notify(1, not);
     }
 
 }

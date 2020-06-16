@@ -1,26 +1,20 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
-import android.app.SearchManager;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,13 +52,16 @@ public class CandidateListViewFragment extends Fragment {
     private ListView listView;
     private SearchView searchView;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-    String date_end = "20200503203400";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         final CandidateViewModel viewModel = new ViewModelProvider(requireActivity()).get(CandidateViewModel.class);
-///
+
+        @SuppressLint("WrongConstant") SharedPreferences sh
+                = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
+        String date_end = sh.getString("endTimeForVoting", " ");
         String currentDateAndTime = sdf.format(new Date());
+
         if (currentDateAndTime.compareTo(date_end) >= 0) {
             AlertDialog ad = new AlertDialog.Builder(getContext())
                     .setTitle("Výsledky volieb")
@@ -83,15 +80,12 @@ public class CandidateListViewFragment extends Fragment {
                     .show();
         }
 
-        ///
         candidatesNamesListView = view.findViewById(R.id.listView);
-        //candidatesNamesListView = view.findViewById(R.id.candidateName);
         candidatesNamesListView.setOnItemClickListener((parent, v, position, id) -> {
             String name = (String) candidatesNamesListView.getItemAtPosition(position);
             viewModel.setSelectedCandidate(name);
             viewModel.setSelectedCandidateID(position);
             //showNotification();
-
         });
 
         listView = view.findViewById(R.id.listView);
@@ -101,7 +95,5 @@ public class CandidateListViewFragment extends Fragment {
 
         // listView.setTextFilterEnabled(true);
         // searchView=view.findViewById(R.id.search_bar);
-
     }
-
 }

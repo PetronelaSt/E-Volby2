@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,21 +17,14 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import sk.upjs.nelinocka.elektronicke_volby.databinding.ActivityVoteBinding;
 
 public class VoteActivity extends AppCompatActivity {
-    /*
-        private NU_UserListViewModel nu_userListViewModel;
-        private NU_VoteApi voteApi = NU_VoteApi.API;
-    */
     ActivityVoteBinding binding;
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-    String date_end = "20200503203400";
 
     TextView voteForCandidate;
 
@@ -89,6 +81,9 @@ public class VoteActivity extends AppCompatActivity {
 
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int i) {
+                            @SuppressLint("WrongConstant") SharedPreferences sh
+                                    = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
+                            String date_end = sh.getString("endTimeForVoting", " ");
                             String currentDateAndTime = sdf.format(new Date());
                             if (currentDateAndTime.compareTo(date_end) >= 0) {
                                 Toast toast = Toast.makeText(getBaseContext(), "Máme výsledky", Toast.LENGTH_LONG);
@@ -122,7 +117,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void odoslalHlas(TextInputLayout personOP, TextInputLayout personPIN) {
-    //idealne pozriem ci uz hlasoval
+        //idealne pozriem ci uz hlasoval
     }
 
     private void pripocitajHlas(String candidateName) {

@@ -1,8 +1,5 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
