@@ -7,9 +7,9 @@ import retrofit2.*;
 
 public class NU_UserListViewModel extends ViewModel {
     private NU_VoteApi voteApi = NU_VoteApi.API;
-    private MutableLiveData<List<NU_User>> users;
+    private MutableLiveData<List<User>> users;
 
-    public LiveData<List<NU_User>> getUsers() {
+    public LiveData<List<User>> getUsers() {
         if (users == null) {
             users = new MutableLiveData<>();
             refresh();
@@ -19,18 +19,18 @@ public class NU_UserListViewModel extends ViewModel {
     }
 
     public void refresh() {
-        Call<List<NU_User>> call = voteApi.getUsers();
-        call.enqueue(new Callback<List<NU_User>>() {
+        Call<List<User>> call = voteApi.getUsers();
+        call.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<List<NU_User>> call,
-                                   Response<List<NU_User>> response) {
+            public void onResponse(Call<List<User>> call,
+                                   Response<List<User>> response) {
                 if (response.isSuccessful()) {
                     NU_UserListViewModel.this.users.postValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<NU_User>> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

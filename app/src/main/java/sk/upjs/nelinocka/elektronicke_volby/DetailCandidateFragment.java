@@ -1,6 +1,10 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.Button;
@@ -52,6 +56,7 @@ public class DetailCandidateFragment extends Fragment {
         candidateViewModel.getSelectedCandidateID().observe(this, this::setDetailsAboutCandidate);
 
         Button button = view.findViewById(R.id.pickedCandidate);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +83,11 @@ public class DetailCandidateFragment extends Fragment {
             "92", "60", "57"};
 
     private void setDetailsAboutCandidate(@org.jetbrains.annotations.NotNull Integer candidateID) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("candidateName", candidateNames[candidateID]);
+        editor.commit();
+
         candidateName.setText(candidateNames[candidateID]);
         candidateImage.setImageResource(candidateImages[candidateID]);
         candidatePoliticalParty.setText(candidatePoliticalParties[candidateID]);

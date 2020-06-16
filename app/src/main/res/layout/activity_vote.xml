@@ -10,6 +10,12 @@
     android:paddingRight="24dp"
     tools:context=".VoteActivity">
 
+        <TextView
+            android:id="@+id/voteForCandidate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="voteForCandidate"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -38,14 +44,14 @@
         android:id="@+id/personPIN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/pin"
-            android:inputType="textPassword"
-            app:endIconMode="password_toggle" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -55,6 +61,9 @@
         android:layout_height="wrap_content"
 
         android:text="@string/odosli_hlas"
-        android:layout_marginTop="240dp"/>
+
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </LinearLayout>

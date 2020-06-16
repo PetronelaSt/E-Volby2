@@ -11,13 +11,13 @@ public interface NU_VoteApi {
             "https://s.ics.upjs.sk/~pstanova/android/vote/index.php/";
 
     @GET("Muggles")
-    Call<List<NU_User>> getUsers();
+    Call<List<User>> getUsers();
 
     @GET("Muggles/{OP}")
-    Call<List<NU_User>> getUsersOP();
+    Call<List<User>> getUsersOP();
 
     @GET("Muggles/{PIN}")
-    Call<List<NU_User>> getUsersPIN();
+    Call<List<User>> getUsersPIN();
 
     Retrofit RETROFIT = new Retrofit.Builder()
             .baseUrl(BASE_URL)
