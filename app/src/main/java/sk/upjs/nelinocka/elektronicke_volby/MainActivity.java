@@ -1,10 +1,22 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationBuilderWithBuilderAccessor;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ListView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +34,22 @@ public class MainActivity extends AppCompatActivity {
             "Gryffindor", "Slytherin", "Ravenclaw"};
     private ListView listView;
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+    String date_end = "20200503203400";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String currentDateAndTime = sdf.format(new Date());
+        if (currentDateAndTime.compareTo(date_end) >= 0) {
+
+            showNotification();
+            //  String channel_id = createNotificationChannel(this.getApplicationContext());
+//            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this.getApplicationContext(), channel_id);
+        }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_main, new CandidateListViewFragment()).commit();
 
         ViewModelProvider viewModelProvider = new ViewModelProvider(this);
@@ -35,8 +59,30 @@ public class MainActivity extends AppCompatActivity {
                 this::showDetailFragment);
     }
 
-    private void showDetailFragment(String city) {
+    private void showDetailFragment(String name) {
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_main, new DetailCandidateFragment())
                 .addToBackStack(null).commit();
     }
+
+    private void showNotification() {
+        System.out.println("SAK ROBIIIIIIIIIM");
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        Intent intent = new Intent(this, NotificationReceiverActivity.class);
+// use System.currentTimeMillis() to have a unique ID for the pending intent
+        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
+
+        Notification.Builder n  = new Notification.Builder(this)
+                .setContentTitle("New notif")
+                .setContentText("Subject")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .setChannelId("1");
+        Notification not = n.build();
+
+
+        notificationManager.notify(1,not);
+    }
+
 }

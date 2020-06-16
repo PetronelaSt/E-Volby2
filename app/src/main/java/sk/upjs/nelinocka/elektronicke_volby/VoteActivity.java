@@ -1,9 +1,11 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -79,23 +81,35 @@ public class VoteActivity extends AppCompatActivity {
             binding.personOP.getEditText().setText("");
             binding.personPIN.getEditText().setText("");
 
-            String currentDateAndTime = sdf.format(new Date());
-            if (currentDateAndTime.compareTo(date_end) >= 0) {
-                Toast toast = Toast.makeText(getBaseContext(), "Máme výsledky", Toast.LENGTH_LONG);
-                toast.show();
+            AlertDialog ad = new AlertDialog.Builder(this)
+                    .setTitle("Potvrdenie o odoslaní hlasu")
+                    .setMessage("Naozaj chcete odoslať hlas kandidátovi " + candidateName + "?")
 
-                Intent i = new Intent(getBaseContext(), ChartActivity.class);
-                startActivity(i);
-            } else {
-                odoslalHlas(personOP, personPIN);
-                pripocitajHlas(candidateName);
-                Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
-                toast.show();
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int i) {
+                            String currentDateAndTime = sdf.format(new Date());
+                            if (currentDateAndTime.compareTo(date_end) >= 0) {
+                                Toast toast = Toast.makeText(getBaseContext(), "Máme výsledky", Toast.LENGTH_LONG);
+                                toast.show();
+
+                                Intent j = new Intent(getBaseContext(), ChartActivity.class);
+                                startActivity(j);
+                            } else {
+                                odoslalHlas(personOP, personPIN);
+                                pripocitajHlas(candidateName);
+                                Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
+                                toast.show();
 
 
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(i);
-            }
+                                Intent j = new Intent(getBaseContext(), MainActivity.class);
+                                startActivity(j);
+                            }
+                        }
+                    })
+
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         } else {
             Toast toast = Toast.makeText(getBaseContext(), "Nesprávne prihlasovacie údaje", Toast.LENGTH_LONG);
             toast.show();

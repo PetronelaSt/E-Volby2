@@ -1,13 +1,20 @@
 package sk.upjs.nelinocka.elektronicke_volby;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -38,6 +45,7 @@ public class CandidateListViewFragment extends Fragment {
             "Ravenclaw", "Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff", "Gryffindor",
             "Gryffindor", "Slytherin", "Ravenclaw"};
     private ListView listView;
+    private SearchView searchView;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -49,12 +57,18 @@ public class CandidateListViewFragment extends Fragment {
             String name = (String) candidatesNamesListView.getItemAtPosition(position);
             viewModel.setSelectedCandidate(name);
             viewModel.setSelectedCandidateID(position);
+            //showNotification();
+
         });
 
         listView = view.findViewById(R.id.listView);
         CandidateListAdapter candidateListAdapter = new CandidateListAdapter(
                 candidateImages, candidateNames, candidatePoliticalParties, this.getContext());
         listView.setAdapter(candidateListAdapter);
+
+        // listView.setTextFilterEnabled(true);
+       // searchView=view.findViewById(R.id.search_bar);
+
     }
 
 }

@@ -1,62 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><!--ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/candidateName"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:entries="@array/candidatesNamesSA"
-    tools:context=".CandidateListViewFragment" /-->
+<?xml version="1.0" encoding="utf-8"?>
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/listView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    android:entries="@array/candidatesNamesSA"
-    tools:context=".CandidateListViewFragment" />
-
-<!--RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/listView"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10px"-->
+    android:entries="@array/candidatesNamesSA"
+    tools:context=".CandidateListViewFragment">
 
-    <!--RelativeLayout
+    <!--androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/rowBg"-->
+        android:layout_margin="2dp"
+        app:iconifiedByDefault="false"
+        app:queryHint="Hľadaj kandidáta"></androidx.appcompat.widget.SearchView-->
 
-        <!--ImageView
-            android:id="@+id/candidateImg"
-            android:layout_width="148dp"
-            android:layout_height="104dp"
-            android:layout_margin="10px"
-            android:scaleType="fitXY"
-            android:src="@drawable/albus_dumbledor" /-->
-
-        <!--RelativeLayout
-            android:id="@+id/candidateDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/candidateImg"-->
-
-            <!--TextView
-                android:id="@+id/candidatePoliticalParty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/candidateName"
-                android:layout_margin="10px"
-                android:text="Political Party: Gryffindor"
-                android:textColor="@color/candidatePoliticalParty"
-                android:textSize="16sp" /-->
-
-            <!--ListView
-                android:id="@+id/candidateName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10px"
-                android:entries="@array/candidatesNamesSA"
-                android:textSize="18sp"
-                tools:context=".CandidateListViewFragment" /-->
-        <!--/RelativeLayout-->
-    <!--/RelativeLayout-->
-<!--/RelativeLayout-->
+</ListView>
