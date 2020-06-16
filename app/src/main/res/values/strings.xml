@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Elektronické voľby</string>
+    <string name="cislo_op">číslo OP</string>
+    <string name="pin">PIN</string>
+    <string name="vypln">Vyplňte prosím číslo občianskeho preukazu a PIN.</string>
+    <string name="odosli_hlas">Odoslať hlas</string>
+    <string-array name="candidatesNamesSA">
+        <item>Albus Dumbledor*</item>
+        <item>Filius Flitwick</item>
+        <item>Gilderoy Lockhart</item>
+        <item>Horace Slughorn</item>
+        <item>Minerva McGonagall</item>
+        <item>Pomona Sprout</item>
+        <item>Remus Lupin</item>
+        <item>Rubeus Hagrid</item>
+        <item>Severus Snape</item>
+        <item>Sybill Trelawney</item>
+    </string-array>
+</resources>

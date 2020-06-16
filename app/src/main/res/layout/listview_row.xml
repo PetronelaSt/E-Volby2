@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10px">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rowBg">
+
+        <ImageView
+            android:id="@+id/candidateImg"
+            android:layout_width="148dp"
+            android:layout_height="104dp"
+            android:layout_margin="10px"
+            android:scaleType="fitXY"
+            android:src="@drawable/albus_dumbledor" />
+
+        <RelativeLayout
+            android:id="@+id/candidateDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/candidateImg">
+
+            <TextView
+                android:id="@+id/candidatePoliticalParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/candidateName"
+                android:layout_margin="10px"
+                android:text="Political Party: Gryffindor"
+                android:textColor="@color/candidatePoliticalParty"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/candidateName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:text="Name: Albus Dumbledore"
+                android:textColor="@color/candidateName"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
