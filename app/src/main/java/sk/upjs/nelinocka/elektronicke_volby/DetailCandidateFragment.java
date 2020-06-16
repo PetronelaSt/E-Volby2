@@ -79,7 +79,7 @@ public class DetailCandidateFragment extends Fragment {
 
     private void setDetailsAboutCandidate(@org.jetbrains.annotations.NotNull Integer candidateID) {
         candidateName.setText(candidateNames[candidateID]);
-        candidateImage.setImageAlpha(candidateImages[candidateID]);
+        candidateImage.setImageResource(candidateImages[candidateID]);
         candidatePoliticalParty.setText(candidatePoliticalParties[candidateID]);
         candidateAge.setText(candidateAges[candidateID]);
         detailAboutCandidate.setText("   " + detailsAboutCandidates[candidateID]);
