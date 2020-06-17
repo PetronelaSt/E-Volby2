@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("startTimeForVoting", "20200614203400");
-        editor.putString("endTimeForVoting", "20200617080500");
+        editor.putString("startTimeForVoting", "20200617160400");
+        editor.putString("endTimeForVoting", "20200617164000");
         editor.commit();
 
 /*        if (currentDateAndTime.compareTo(date_end) >= 0) {

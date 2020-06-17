@@ -18,8 +18,6 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import sk.upjs.nelinocka.elektronicke_volby.databinding.FragmentMasterBinding;
@@ -85,8 +83,8 @@ public class CandidateListViewFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
         for (int i = 0; i < usersOps.length; i++) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(usersOps[i].toString(), usersPins[i]);
-            editor.putBoolean(usersPins[i].toString(), false);
+            editor.putString(usersOps[i], usersPins[i]);
+            editor.putBoolean(usersPins[i], false);
             editor.commit();
         }
     }
@@ -107,10 +105,21 @@ public class CandidateListViewFragment extends Fragment {
     private SearchView searchView;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
 
+    //6.
     private String[] usersOps = new String[]{
             "AH315681", "FA979131", "AA864711",
-            "TZ519951", "KO541322", "PS148537", "SL414861", "XX000001", "XX000002", "XX000003"};
+            "TZ519951", "KO541322", "PS148537",
+            "SL414861", "XX000001", "XX000002",
+            "XX000003", "SK000001", "SK000002",
+            "SK000003", "SK000004", "SK000005",
+            "AB123456", "AB000000", "TZ518436",
+            "XY123456"};
     private String[] usersPins = new String[]{
-            "9811", "5519", "7563", "4915",
-            "5493", "8812", "1244", "0001", "0002", "0003"};
+            "9811", "5519", "7563",
+            "4915", "5493", "8812",
+            "1244", "0001", "0002",
+            "0003", "1111", "2222",
+            "3333", "4444", "5555",
+            "1234", "4321", "8231",
+            "2345"};
 }

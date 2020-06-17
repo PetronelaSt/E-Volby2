@@ -95,7 +95,7 @@ public class VoteActivity extends AppCompatActivity {
 
                                     Intent j = new Intent(getBaseContext(), MainActivity.class);
                                     startActivity(j);
-                                } else {
+                                } else if (odoslalHlas(personPIN) == false) {
                                     pripocitajHlas(candidateName);
                                     odosliHlas(personPIN);
                                     Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);

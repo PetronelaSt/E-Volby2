@@ -69,8 +69,9 @@ public class DetailCandidateFragment extends Fragment {
         String date_end = sh.getString("endTimeForVoting", " ");
         String currentDateAndTime = sdf.format(new Date());
 
-        if (currentDateAndTime.compareTo(date_start) < 0 || currentDateAndTime.compareTo(date_end) >= 0) {
-            // button.setEnabled(false);
+        if (currentDateAndTime.compareTo(date_start) < 0) {
+            pickedCandidate.setEnabled(false);
+        } else if (currentDateAndTime.compareTo(date_end) >= 0) {
             pickedCandidate.setText("Výsledky volieb");
             pickedCandidate.setOnClickListener(new View.OnClickListener() {
                 @Override
