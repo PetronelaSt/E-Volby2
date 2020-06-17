@@ -34,6 +34,8 @@ public class DetailCandidateFragment extends Fragment {
         // Required empty public constructor
     }
 
+    DetailCandidateFragment binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
