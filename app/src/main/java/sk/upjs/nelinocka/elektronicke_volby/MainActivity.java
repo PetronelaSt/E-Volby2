@@ -17,20 +17,6 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Integer[] candidateImages = new Integer[]{
-            R.drawable.albus_dumbledor, R.drawable.filius_flitwick,
-            R.drawable.gilderoy_lockhart, R.drawable.horace_slughorn,
-            R.drawable.minerva_mcgonagall, R.drawable.pomona_sprout, R.drawable.remus_lupin,
-            R.drawable.rubeus_hagrid, R.drawable.severus_snape, R.drawable.sybill_trelawney};
-    private String[] candidateNames = new String[]{
-            "Albus Dumbledor", "Filius Flitwick", "Gilderoy Lockhart",
-            "Horace Slughorn", "Minerva McGonagall", "Pomona Sprout", "Remus Lupin",
-            "Rubeus Hagrid", "Severus Snape", "Sybill Trelawney"};
-    private String[] candidatePoliticalParties = new String[]{"Gryffindor",
-            "Ravenclaw", "Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff", "Gryffindor",
-            "Gryffindor", "Slytherin", "Ravenclaw"};
-    private ListView listView;
-
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
 
     @Override
@@ -41,12 +27,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("startTimeForVoting", "20200614203400");
-        editor.putString("endTimeForVoting", "20200617170500");
+        editor.putString("endTimeForVoting", "20200618080500");
         editor.commit();
 
-/*
-        if (currentDateAndTime.compareTo(date_end) >= 0) {
-
+/*        if (currentDateAndTime.compareTo(date_end) >= 0) {
             showNotification();
             //  String channel_id = createNotificationChannel(this.getApplicationContext());
 //            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this.getApplicationContext(), channel_id);
@@ -71,12 +55,11 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, NotificationReceiverActivity.class);
-// use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
 
         Notification.Builder n = new Notification.Builder(this)
                 .setContentTitle("New notif")
-                .setContentText("Subject")
+                .setContentText("Subj")
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)

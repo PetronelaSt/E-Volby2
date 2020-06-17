@@ -39,7 +39,11 @@ public class ChartActivity extends AppCompatActivity {
         pieDataSet.setColors(colors);
 
         PieData pieData = new PieData(pieDataSet);
+
         pieChart.setData(pieData);
+        pieChart.setUsePercentValues(true);
+        pieChart.setHoleRadius(30);
+        pieChart.setTransparentCircleRadius(35);
     }
 
     private ArrayList<PieEntry> dataValues() {

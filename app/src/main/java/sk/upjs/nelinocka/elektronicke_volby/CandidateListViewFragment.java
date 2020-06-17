@@ -37,22 +37,6 @@ public class CandidateListViewFragment extends Fragment {
                 container, false);
     }
 
-    private Integer[] candidateImages = new Integer[]{
-            R.drawable.albus_dumbledor, R.drawable.filius_flitwick,
-            R.drawable.gilderoy_lockhart, R.drawable.horace_slughorn,
-            R.drawable.minerva_mcgonagall, R.drawable.pomona_sprout, R.drawable.remus_lupin,
-            R.drawable.rubeus_hagrid, R.drawable.severus_snape, R.drawable.sybill_trelawney};
-    private String[] candidateNames = new String[]{
-            "Albus Dumbledor", "Filius Flitwick", "Gilderoy Lockhart",
-            "Horace Slughorn", "Minerva McGonagall", "Pomona Sprout", "Remus Lupin",
-            "Rubeus Hagrid", "Severus Snape", "Sybill Trelawney"};
-    private String[] candidatePoliticalParties = new String[]{"Gryffindor",
-            "Ravenclaw", "Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff", "Gryffindor",
-            "Gryffindor", "Slytherin", "Ravenclaw"};
-    private ListView listView;
-    private SearchView searchView;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         final CandidateViewModel viewModel = new ViewModelProvider(requireActivity()).get(CandidateViewModel.class);
@@ -61,24 +45,6 @@ public class CandidateListViewFragment extends Fragment {
                 = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
         String date_end = sh.getString("endTimeForVoting", " ");
         String currentDateAndTime = sdf.format(new Date());
-
-        if (currentDateAndTime.compareTo(date_end) >= 0) {
-            AlertDialog ad = new AlertDialog.Builder(getContext())
-                    .setTitle("Výsledky volieb")
-                    .setMessage("Sú dostupné výsledky volieb, chcete si ich pozrieť?")
-
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int i) {
-                            Intent j = new Intent(getContext(), ChartActivity.class);
-                            startActivity(j);
-
-                        }
-                    })
-
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .show();
-        }
 
         candidatesNamesListView = view.findViewById(R.id.listView);
         candidatesNamesListView.setOnItemClickListener((parent, v, position, id) -> {
@@ -95,5 +61,54 @@ public class CandidateListViewFragment extends Fragment {
 
         // listView.setTextFilterEnabled(true);
         // searchView=view.findViewById(R.id.search_bar);
+/*
+        if (currentDateAndTime.compareTo(date_end) >= 0) {
+            AlertDialog ad = new AlertDialog.Builder(getContext())
+                    .setTitle("Výsledky volieb")
+                    .setMessage("Sú dostupné výsledky volieb, chcete si ich pozrieť?")
+
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int i) {
+                            Intent j = new Intent(getContext(), ChartActivity.class);
+                            startActivity(j);
+
+                        }
+                    })
+
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .show();
+        }*/
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        for (int i = 0; i < usersOps.length; i++) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(usersOps[i], usersPins[i]);
+            editor.putBoolean(usersOps[i]+"Bool", false);
+            editor.commit();
+        }
     }
+
+    private Integer[] candidateImages = new Integer[]{
+            R.drawable.albus_dumbledor, R.drawable.filius_flitwick,
+            R.drawable.gilderoy_lockhart, R.drawable.horace_slughorn,
+            R.drawable.minerva_mcgonagall, R.drawable.pomona_sprout, R.drawable.remus_lupin,
+            R.drawable.rubeus_hagrid, R.drawable.severus_snape, R.drawable.sybill_trelawney};
+    private String[] candidateNames = new String[]{
+            "Albus Dumbledor", "Filius Flitwick", "Gilderoy Lockhart",
+            "Horace Slughorn", "Minerva McGonagall", "Pomona Sprout", "Remus Lupin",
+            "Rubeus Hagrid", "Severus Snape", "Sybill Trelawney"};
+    private String[] candidatePoliticalParties = new String[]{"Gryffindor",
+            "Ravenclaw", "Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff", "Gryffindor",
+            "Gryffindor", "Slytherin", "Ravenclaw"};
+    private ListView listView;
+    private SearchView searchView;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+
+    private String[] usersOps = new String[]{
+            "AH315681", "FA979131", "AA864711",
+            "TZ519951", "KO541322", "PS148537", "SL414861"};
+    private String[] usersPins = new String[]{
+            "9811", "5519", "7563", "4915",
+            "5493", "8812", "1244"};
 }

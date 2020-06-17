@@ -69,7 +69,15 @@ public class DetailCandidateFragment extends Fragment {
         String date_end = sh.getString("endTimeForVoting", " ");
         String currentDateAndTime = sdf.format(new Date());
         if (currentDateAndTime.compareTo(date_start) < 0 || currentDateAndTime.compareTo(date_end) >= 0) {
-            button.setEnabled(false);
+            // button.setEnabled(false);
+            button.setText("Výsledky volieb");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getContext(), ChartActivity.class);
+                    startActivity(i);
+                }
+            });
         } else if (currentDateAndTime.compareTo(date_start) >= 0 && currentDateAndTime.compareTo(date_end) < 0) {
 
             button.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +88,19 @@ public class DetailCandidateFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void setDetailsAboutCandidate(@org.jetbrains.annotations.NotNull Integer candidateID) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("candidateName", candidateNames[candidateID]);
+        editor.commit();
+
+        candidateName.setText(candidateNames[candidateID]);
+        candidateImage.setImageResource(candidateImages[candidateID]);
+        candidatePoliticalParty.setText(candidatePoliticalParties[candidateID]);
+        candidateAge.setText(candidateAges[candidateID]);
+        detailAboutCandidate.setText("   " + detailsAboutCandidates[candidateID]);
     }
 
     private Integer[] candidateImages = new Integer[]{
@@ -109,23 +130,4 @@ public class DetailCandidateFragment extends Fragment {
             "Severus Snape (9. januára 1960 - 2. mája 1998) bol anglický čarodejník v krvi krvi, ktorý pôsobil ako majster elixírov (1981 - 1996), profesor obrany proti temným umám (1996 - 1997). a riaditeľ (1997-1998) Bradavickej školy čarodejníctva a čarodejníctva, ako aj člen Rádu Phoenixu a Smrťožrúta. Jeho dvojitý život zohral mimoriadne dôležitú úlohu v oboch čarodejníckych vojnách proti Voldemortovi. Ako jediné dieťa muklov Tobias Snape a škriatkovia Eileen Snape (rodený princ) bol Severus vychovávaný v mudlovskom dome Spinner's End, ktorý bol v tesnej blízkosti domu Evansovej rodiny, hoci v chudobnejšej oblasti. Keď mal deväť rokov, stretol sa s Lily a Petuniou Evansovou a hlboko sa zamiloval do Lily, stal sa jej blízkym priateľom.Severus začal v Bradaviciach s Lily v roku 1971, kde bol zaradený do Slizolinského domu. Toto ho dalo v tom istom roku ako Lily, ale bohužiaľ pre neho v konkurenčných domoch. Severus sa stal bezprostredným nepriateľom Jamesa Pottera a Siriusa Blacka a bol častou obeťou ich šikanovania. Toto ho viedlo k podráždeniu voči Jamesovmu synovi Harrymu, keď bol profesorom. Snape, keď bol mladý, vyvinul vášeň pre Temné umenie, ktorá sa zvyšovala s rastúcou túžbou po pomste. Snape sa zapojil do šikanovania v Slizolinskom dome, z ktorých mnohí boli supremacisti čistej krvi. Toto dalo jeho priateľstvo s Lily, muklovský rodák, pod veľkým tlakom, až kým nebolo nakoniec prerušené v piatom roku. V snahe získať späť Lilyho náklonnosť sa Snape pripojil k Smrťožrútom spolu so skupinou jeho spoluobčanov Slizolinčanov.Severus sa zrejme stal členom klubu Slug Club kvôli jeho talentu v oblasti výroby lektvarov a Horace Slughorn si ho ako študenta udržal tak, že mu držal kópiu formulára Advanced Potion-Making. Napriek tomu Horace nemal veľa nádeje na budúcnosť Severusa, pretože jeho fotografia zostala pozadu za mnohými inými.Krátko pred zavraždením Lily Evansovej lordom Voldemortom Snape zmenil strany a stal sa členom 2. rádu Phoenixu ako dvojitého agenta počas druhej čarodejníckej vojny. S obrovskými ťažkosťami Snape zabránil lordovi Voldemortovi, aby sa dozvedel pravdu o jeho lojalite. Napriek názorom väčšiny ostatných vrátane Harryho počas jeho raného života, Albus Dumbledore Snapovi dôveroval z dôvodov, ktoré boli medzi nimi držané až do ich smrti. Napriek tomu, že Snape zabil Dumbledora, je známe, že s ním mali osobitnú dohodu. Keď zomrel, ukázalo sa, že jeho hlboká silná láska k Lily Evansovej spôsobila, že sa vykúpil, keď sa pripojil k Brumbálovej príčine kvôli jej ochrane (a po jej smrti aj k jej synovi) od lorda Voldemorta.Vzťah medzi Dumbledorom a Snapom by bol nezvyčajne silnou lojalitou, takže Snape súhlasil so zabitím Dumbledora na jeho vlastnú žiadosť. Pred Dumbledorovou smrťou Snape sľúbil, že bude chrániť študentov Rokfortu pred Smrťožrútmi, ktorí nevyhnutne prevezmú kontrolu nad ministerstvom mágie, ako aj nad školou. Snape sa neskôr zúčastnil bitky v Bradaviciach, ale zavraždil ho lord Voldemort, ktorý sa mylne domnieval, že Snape bol majstrom Starej prútiky (nesmierne silná a mocná prútik, ktorý Voldemort hlboko túžil, ako aj jednou z posvätných svätých), keď bola v skutočnosti Harry Potter bol majstrom Staršej prútiky, pretože Draco Malfoy odzbrojil Dumbledora v noci po Dumbledorovej smrti na vrchu Astronomickej veže a Harry odzbrojil Draca v Malfoy Manor.Po Snapovej smrti Harry Potter zabezpečil, aby jeho portrét zostal v Rokforte, napriek tomu, že jeho osobnostné rozdiely boli vysoké. Okrem toho Harry neskôr pomenoval svojho druhého syna Albusa Severusa Pottera na počesť Dumbledora a Severusa, ktorí boli po bitke v Bradaviciach inšpiráciou v Harryho živote. Harryho tiež ovplyvnil Severusov Bradavický dom a slobodne pripustil, že Albus si mohol zvoliť Zmijozela, ak si to želal.",
             "Profesorka Sybill Patricia Trelawney (9. marca, pred rokom 1962 ) bola čarodejnica a profesorka veštenia na Bradavskej škole čarodejníctva a čarodejníctva. Je to veľká vnučka slávenej Cassandry Trelawneyovej, ktorá bola tiež veštcom.Bola to samotná Trelawneyová, ktorá počas svojho pracovného pohovoru s Albusom Dumbledorom urobila proroctvo týkajúce sa lorda Voldemorta a toho, ktorý bol schopný ho poraziť (Voldemort to považoval za Harryho Pottera). Na konci školského roku 1993 - 1994 presne predpovedala únik Petra Pettigrewa a návrat Pána Voldemorta.V školskom roku 1995–1996 bol Trelawney veľmi znepokojený Doloresom Umbridgeom, ktorý ju prepustil a pokúsil sa ju vylúčiť z Rokfortu, aj keď Dumbledore jej umožnil zostať v škole, pričom Umbridgeová bola veľmi urazená, keď mala neskôr. učiť popri kentaurovi Firenze. V školskom roku 1997 - 1998 sa zúčastnila bitky v Bradaviciach, hodila krištáľové gule na hlavy Smrťožrútov a starala sa o zranených a mŕtvych spolu s Padmou Patil.Profesorka Trelawneyová pokračovala vo výučbe do roku 2010, pokračovala vo svojej tradícii predpovedať úmrtia svojich študentov. Keďže Firenze bola privítaná späť k svojmu stádu, je možné, že opäť učí veštenie."};
 
-    private void setDetailsAboutCandidate(@org.jetbrains.annotations.NotNull Integer candidateID) {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("candidateName", candidateNames[candidateID]);
-        editor.commit();
-
-        candidateName.setText(candidateNames[candidateID]);
-        candidateImage.setImageResource(candidateImages[candidateID]);
-        candidatePoliticalParty.setText(candidatePoliticalParties[candidateID]);
-        candidateAge.setText(candidateAges[candidateID]);
-        detailAboutCandidate.setText("   " + detailsAboutCandidates[candidateID]);
-    }
-
-    private void createMapForVote(String[] candidateNames){
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        for (int i = 0; i < candidateNames.length; i++) {
-            map.put(candidateNames[i], 0);
-        }
-    }
 }

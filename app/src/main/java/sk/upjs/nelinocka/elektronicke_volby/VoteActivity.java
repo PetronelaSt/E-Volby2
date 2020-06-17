@@ -71,42 +71,51 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void overeniePrihlasenia(TextInputLayout personOP, TextInputLayout personPIN, String candidateName) {
-        if (personOP.getEditText().getText().toString().equals("AH315681") && personPIN.getEditText().getText().toString().equals("9811")) {
+        if (overHeslo(personOP, personPIN) == true) {
             binding.personOP.getEditText().setText("");
             binding.personPIN.getEditText().setText("");
 
-            AlertDialog ad = new AlertDialog.Builder(this)
-                    .setTitle("Potvrdenie o odoslaní hlasu")
-                    .setMessage("Naozaj chcete odoslať hlas kandidátovi " + candidateName + "?")
+            if (odoslalHlas(personOP, personPIN) == true) {
+                Toast toast = Toast.makeText(getBaseContext(), "Už ste hlasovali", Toast.LENGTH_LONG);
+                toast.show();
 
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int i) {
-                            @SuppressLint("WrongConstant") SharedPreferences sh
-                                    = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
-                            String date_end = sh.getString("endTimeForVoting", " ");
-                            String currentDateAndTime = sdf.format(new Date());
-                            if (currentDateAndTime.compareTo(date_end) >= 0) {
-                                Toast toast = Toast.makeText(getBaseContext(), "Máme výsledky", Toast.LENGTH_LONG);
-                                toast.show();
+                Intent j = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(j);
+            } else {
 
-                                Intent j = new Intent(getBaseContext(), ChartActivity.class);
-                                startActivity(j);
-                            } else {
-                                // odoslalHlas(personOP, personPIN);
-                                pripocitajHlas(candidateName);
-                                Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
-                                toast.show();
+                AlertDialog ad = new AlertDialog.Builder(this)
+                        .setTitle("Potvrdenie o odoslaní hlasu")
+                        .setMessage("Naozaj chcete odoslať hlas kandidátovi " + candidateName + "?")
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int i) {
+                                @SuppressLint("WrongConstant") SharedPreferences sh
+                                        = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
+                                String date_end = sh.getString("endTimeForVoting", " ");
+                                String currentDateAndTime = sdf.format(new Date());
+                                if (currentDateAndTime.compareTo(date_end) >= 0) {
+                                    Toast toast = Toast.makeText(getBaseContext(), "Vypršal čas na hlasovanie", Toast.LENGTH_LONG);
+                                    toast.show();
+
+                                    Intent j = new Intent(getBaseContext(), ChartActivity.class);
+                                    startActivity(j);
+                                } else {
+                                    pripocitajHlas(candidateName);
+                                    odosliHlas(personOP, personPIN);
+                                    Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
+                                    toast.show();
 
 
-                                Intent j = new Intent(getBaseContext(), MainActivity.class);
-                                startActivity(j);
+                                    Intent j = new Intent(getBaseContext(), MainActivity.class);
+                                    startActivity(j);
+                                }
                             }
-                        }
-                    })
+                        })
 
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
         } else {
             Toast toast = Toast.makeText(getBaseContext(), "Nesprávne prihlasovacie údaje", Toast.LENGTH_LONG);
             toast.show();
@@ -116,8 +125,25 @@ public class VoteActivity extends AppCompatActivity {
         }
     }
 
-    private void odoslalHlas(TextInputLayout personOP, TextInputLayout personPIN) {
-        //idealne pozriem ci uz hlasoval
+    private boolean odoslalHlas(TextInputLayout personOP, TextInputLayout personPIN) {
+        @SuppressLint("WrongConstant") SharedPreferences sh
+                = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
+        return sh.getBoolean(personOP.getEditText().getText().toString() + "Bool", false);
+    }
+
+    private void odosliHlas(TextInputLayout personOP, TextInputLayout personPIN) {
+        SharedPreferences sharedPreferences = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(personOP.getEditText().getText().toString() + "Bool", true);
+        editor.commit();
+    }
+
+    private boolean overHeslo(TextInputLayout personOP, TextInputLayout personPIN) {
+        @SuppressLint("WrongConstant") SharedPreferences sh
+                = getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
+        String heslo = sh.getString(personOP.getEditText().getText().toString(), "");
+
+        return heslo.equals(personPIN.getEditText().getText().toString());
     }
 
     private void pripocitajHlas(String candidateName) {
