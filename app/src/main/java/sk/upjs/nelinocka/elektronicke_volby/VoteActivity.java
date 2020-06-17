@@ -89,21 +89,21 @@ public class VoteActivity extends AppCompatActivity {
                                 Intent j = new Intent(getBaseContext(), ChartActivity.class);
                                 startActivity(j);
                             } else {
-                                if (odoslalHlas(personPIN) == true) {
+                               /* if (odoslalHlas(personPIN) == true) {
                                     Toast toast = Toast.makeText(getBaseContext(), "Už ste hlasovali", Toast.LENGTH_LONG);
                                     toast.show();
 
                                     Intent j = new Intent(getBaseContext(), MainActivity.class);
                                     startActivity(j);
-                                } else if (odoslalHlas(personPIN) == false) {
-                                    pripocitajHlas(candidateName);
-                                    odosliHlas(personPIN);
-                                    Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
-                                    toast.show();
+                                } else {*/
+                                pripocitajHlas(candidateName);
+                                odosliHlas(personPIN);
+                                Toast toast = Toast.makeText(getBaseContext(), "Váš hlas bol odoslaný", Toast.LENGTH_LONG);
+                                toast.show();
 
-                                    Intent j = new Intent(getBaseContext(), MainActivity.class);
-                                    startActivity(j);
-                                }
+                                Intent j = new Intent(getBaseContext(), MainActivity.class);
+                                startActivity(j);
+                                //  }
                             }
                         }
                     })
@@ -114,9 +114,6 @@ public class VoteActivity extends AppCompatActivity {
         } else {
             Toast toast = Toast.makeText(getBaseContext(), "Nesprávne prihlasovacie údaje", Toast.LENGTH_LONG);
             toast.show();
-
-            binding.personOP.getEditText().setText("");
-            binding.personPIN.getEditText().setText("");
         }
     }
 
