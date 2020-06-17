@@ -55,23 +55,22 @@ public class DetailCandidateFragment extends Fragment {
         candidateImage = view.findViewById(R.id.candidateImg);
         candidatePoliticalParty = view.findViewById(R.id.candidatePoliticalParty);
         pickedCandidate = view.findViewById(R.id.pickedCandidate);
+
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
         CandidateViewModel candidateViewModel = viewModelProvider.get(CandidateViewModel.class);
 
         candidateViewModel.getSelectedCandidateID().observe(this, this::setDetailsAboutCandidate);
-
-        Button button = view.findViewById(R.id.pickedCandidate);
-
 
         @SuppressLint("WrongConstant") SharedPreferences sh
                 = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_APPEND);
         String date_start = sh.getString("startTimeForVoting", " ");
         String date_end = sh.getString("endTimeForVoting", " ");
         String currentDateAndTime = sdf.format(new Date());
+
         if (currentDateAndTime.compareTo(date_start) < 0 || currentDateAndTime.compareTo(date_end) >= 0) {
             // button.setEnabled(false);
-            button.setText("Výsledky volieb");
-            button.setOnClickListener(new View.OnClickListener() {
+            pickedCandidate.setText("Výsledky volieb");
+            pickedCandidate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getContext(), ChartActivity.class);
@@ -79,8 +78,7 @@ public class DetailCandidateFragment extends Fragment {
                 }
             });
         } else if (currentDateAndTime.compareTo(date_start) >= 0 && currentDateAndTime.compareTo(date_end) < 0) {
-
-            button.setOnClickListener(new View.OnClickListener() {
+            pickedCandidate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getContext(), VoteActivity.class);

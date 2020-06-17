@@ -83,8 +83,8 @@ public class CandidateListViewFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
         for (int i = 0; i < usersOps.length; i++) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(usersOps[i], usersPins[i]);
-            editor.putBoolean(usersOps[i]+"Bool", false);
+            editor.putString(usersOps[i].toString(), usersPins[i]);
+            editor.putBoolean(usersPins[i].toString(), false);
             editor.commit();
         }
     }
@@ -107,8 +107,8 @@ public class CandidateListViewFragment extends Fragment {
 
     private String[] usersOps = new String[]{
             "AH315681", "FA979131", "AA864711",
-            "TZ519951", "KO541322", "PS148537", "SL414861"};
+            "TZ519951", "KO541322", "PS148537", "SL414861", "XX000001", "XX000002", "XX000003"};
     private String[] usersPins = new String[]{
             "9811", "5519", "7563", "4915",
-            "5493", "8812", "1244"};
+            "5493", "8812", "1244", "0001", "0002", "0003"};
 }
